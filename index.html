@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Based Access</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:aqua;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: orange;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+    <script>
+        function getUserLocation() {
+            return prompt("Please enter your location (e.g., Punjab, Haryana, Chandigarh):");
+        }
+
+        function authenticateUser(location) {
+            let username = prompt("Enter your username:");
+            let password = prompt("Enter your password:");
+            if (username === "admin" && password === "password") {
+                showMap(location);
+            } else {
+                alert("Wrong credentials.");
+            }
+        }
+
+        function showMap(location) {
+            let mapUrl = "";
+            switch (location.toLowerCase()) {
+                case "punjab":
+                    mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d879264.0655305555!2d74.66545108058433!3d30.92932120037705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391964ad8ae2b4d7%3A0xf0e2a8f54b6ab56a!2sPunjab!5e0!3m2!1sen!2sin!4v1599632542448!5m2!1sen!2sin";
+                    break;
+                case "haryana":
+                    mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6932143.768726379!2d75.49982329831574!3d29.05877680106685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e4b7b22120d91%3A0xf8e662dcd0ebf176!2sHaryana!5e0!3m2!1sen!2sin!4v1599632595478!5m2!1sen!2sin";
+                    break;
+                case "chandigarh":
+                    mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13744.485432389153!2d76.77941723257982!3d30.73331475332064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fed9c43a40b79%3A0x12b398a58b773373!2sChandigarh!5e0!3m2!1sen!2sin!4v1599632658748!5m2!1sen!2sin";
+                    break;
+                default:
+                    alert("Invalid location.");
+                    return;
+            }
+            document.getElementById('mapFrame').src = mapUrl;
+            document.getElementById('mapFrame').style.display = 'block';
+        }
+
+        function checkAccess() {
+            let location = getUserLocation();
+            if (location.toLowerCase() === "punjab" || location.toLowerCase() === "haryana" || location.toLowerCase() === "chandigarh") {
+                authenticateUser(location);
+            } else {
+                alert("Access denied.");
+            }
+        }
+
+        window.onload = function() {
+            checkAccess();
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Location Based Access Page</h1>
+        <p>If you are from Punjab, Haryana, or Chandigarh, you will be asked to provide your credentials.</p>
+        
+    </div>
+</body>
+</html>
